@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+    <title>RAG 知识库问答</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="bg-decoration" aria-hidden="true"></div>
+
+    <div class="app">
+        <header class="hero">
+            <div class="hero__brand">
+                <span class="hero__logo" aria-hidden="true">◇</span>
+                <div class="hero__titles">
+                    <p class="hero__eyebrow">Knowledge RAG</p>
+                    <h1 class="hero__title">cyc</h1>
+                    <p class="hero__subtitle">上传文档 · 基于检索的智能问答</p>
+                </div>
+            </div>
+
+            <div class="api-key-setup card card--inline">
+                <label class="field-label" for="apiKeyInput">API Key</label>
+                <div class="field-row">
+                    <input type="password" id="apiKeyInput" class="input input--key" placeholder="输入你的 API Key" autocomplete="off" value="api-key-001">
+                    <button type="button" id="saveApiKeyBtn" class="btn btn--ghost">保存</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="layout">
+            <section class="panel panel--upload" aria-labelledby="upload-heading">
+                <div class="panel__head">
+                    <span class="panel__icon" aria-hidden="true">📄</span>
+                    <h2 id="upload-heading" class="panel__title">文档入库</h2>
+                    <p class="panel__desc">支持 TXT / PDF，上传后自动切块并向量化</p>
+                </div>
+                <div class="upload-controls">
+                    <label class="file-drop">
+                        <input type="file" id="fileInput" class="file-drop__input" accept=".txt,.pdf">
+                        <span class="file-drop__ui">
+                            <strong id="fileDropPrimary">点击选择</strong>
+                            <span id="fileDropSecondary">或拖入文件</span>
+                        </span>
+                    </label>
+                    <button type="button" id="uploadBtn" class="btn btn--primary btn--block">上传并索引</button>
+                </div>
+                <div id="uploadStatus" class="status-line" role="status"></div>
+            </section>
+
+            <section class="panel panel--chat" aria-labelledby="chat-heading">
+                <div class="panel__head">
+                    <span class="panel__icon" aria-hidden="true">💬</span>
+                    <h2 id="chat-heading" class="panel__title">对话</h2>
+                    <p class="panel__desc">多轮会话将保留上下文；可随时新建会话</p>
+                </div>
+
+                <div class="session-bar">
+                    <label class="field-label" for="sessionIdInput">会话 ID</label>
+                    <div class="session-bar__row">
+                        <input type="text" id="sessionIdInput" class="input" placeholder="留空则使用当前会话">
+                        <button type="button" id="newSessionBtn" class="btn btn--secondary">新会话</button>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages"></div>
+
+                <div class="composer">
+                    <label class="sr-only" for="promptInput">问题输入</label>
+                    <textarea id="promptInput" class="input composer__input" rows="3" placeholder="输入你的问题…（Enter 发送，Ctrl+Enter 换行）"></textarea>
+                    <button type="button" id="sendBtn" class="btn btn--primary composer__send">发送</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <span>本地 RAG · 请妥善保管 API Key</span>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
